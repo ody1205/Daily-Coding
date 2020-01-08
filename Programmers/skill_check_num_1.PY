@@ -21,22 +21,30 @@ k = 5
 
 # import itertools
 
-def all_perms(elements):
-    all_per = []
-    if len(elements) <=1:
-        return elements
+# def solution(n, k):
+#     a = list(range(1,n+1))
+    
+#     pos_comb = itertools.permutations(a)
+#     answer = list(list(pos_comb)[k-1])
+#     print(list(all_perms(a)))
+#     return 
+
+def all_permutations(given_string):
+    for i in range(len(given_string)):
+        permute('', given_string, i+1)
+
+def permute(prefix, given_string, max_len):
+    if len(given_string) <= 0 or len(prefix) >= max_len:
+        print(prefix)
     else:
-        for perm in all_perms(elements[1:]):
-            for i in range(len(elements)):
-                # nb elements[0:1] works in both string and list contexts
-                all_per.append(perm[:i] + elements[0:1] + perm[i:])
-    return all_per
+        for i in range(len(given_string)):
+            permute(prefix + given_string[i], given_string[:i] + given_string[i+1:], max_len)
 
 def solution(n, k):
-    a = list(range(1,n+1))
-    # pos_comb = itertools.permutations(a)
-    # answer = list(list(pos_comb)[k-1])
-    # print(list(all_perms(a)))
-    return 
+    a = []
+    for i in range(1, n+1):
+        a.append(str(i))
+    all_permutations(a)
+    return
 
 print(solution(n, k))
