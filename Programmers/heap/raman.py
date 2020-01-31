@@ -3,12 +3,15 @@ import heapq
 def solution(stock, dates, supplies, k):
     answer = 0
     heap = []
-    supplies = [i*(-1) for i in supplies]
-    li = list(zip(supplies, dates))
-    heapq.heapify(li)
+    idx = 0
     while stock < k:
-        supply = heapq.heappop(li)
-        stock -= supply[0]
+        for i in range(idx, len(dates)):
+            if dates[i] <= stock:
+                heapq.heappush(heap, (-supplies[i]))
+                idx = i + 1
+            else:
+                break
+        stock -= heapq.heappop(heap)
         answer += 1
 
     return answer
