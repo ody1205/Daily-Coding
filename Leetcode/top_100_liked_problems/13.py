@@ -1,5 +1,5 @@
 '''
-12. Integer to Roman
+13. Roman to Integer
 Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.
 
 Symbol       Value
@@ -17,45 +17,43 @@ Roman numerals are usually written largest to smallest from left to right. Howev
 I can be placed before V (5) and X (10) to make 4 and 9. 
 X can be placed before L (50) and C (100) to make 40 and 90. 
 C can be placed before D (500) and M (1000) to make 400 and 900.
-Given an integer, convert it to a roman numeral. Input is guaranteed to be within the range from 1 to 3999.
+Given a roman numeral, convert it to an integer. Input is guaranteed to be within the range from 1 to 3999.
 
 Example 1:
 
-Input: 3
-Output: "III"
+Input: "III"
+Output: 3
 Example 2:
 
-Input: 4
-Output: "IV"
+Input: "IV"
+Output: 4
 Example 3:
 
-Input: 9
-Output: "IX"
+Input: "IX"
+Output: 9
 Example 4:
 
-Input: 58
-Output: "LVIII"
-Explanation: L = 50, V = 5, III = 3.
+Input: "LVIII"
+Output: 58
+Explanation: L = 50, V= 5, III = 3.
 Example 5:
 
-Input: 1994
-Output: "MCMXCIV"
+Input: "MCMXCIV"
+Output: 1994
 Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
 '''
 
 class Solution:
-    def intToRoman(self, num: int) -> str:
-        result = []
-        s = {1000: "M", 900: "CM", 500: "D", 400: "CD", 100: "C", 90: "XC", 50: "L", 40: "XL", 10: "X", 9: "IX", 5: "V", 4: "IV", 1: "I"}
-        while num > 0:
-            i = 0
-            for i in s:
-                if num >= i:
-                    result.append(s[i])
-                    num -= i
-                    break
-        return ''.join(result)
-
-print(Solution.intToRoman(Solution,1994))
-            
-
+    def romanToInt(self, s: str) -> int:
+        a = {'I':1, 'V':5, 'X':10, 'L':50, 'C':100, 'D':500, 'M':1000}
+        answer = 0
+        prev = ''
+        for i in s:
+            if (prev == 'I' and i == 'V') or (prev == 'I' and i == 'X') or (prev == 'X' and i == 'L') or (prev == 'X' and i == 'C') or (prev == 'C' and i == 'D') or (prev == 'C' and i == 'M'):
+                answer -= a[prev]
+                answer += (a[i] - a[prev])
+            else:
+                answer += a[i]
+            prev = i
+        return answer
+print(Solution.romanToInt(Solution, "MCMXCIV"))
