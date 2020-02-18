@@ -16,20 +16,20 @@ For example, given n = 3, a solution set is:
 (())
 '''
 class Solution(object):
-    def generateParenthesis(self, N):
+    def generateParenthesis(self, n):
         ans = []
-        S = ''
-        left = 0
-        right = 0
-        def backtrack(S, left, right):
-            if len(S) == 2 * N:
-                ans.append(S)
+        s = ''
+        l = 0
+        r = 0
+        def backtrack(s, l, r):
+            if len(s) == 2 * n:
+                ans.append(s)
                 return
-            if left < N:
-                backtrack(S+'(', left+1, right)
-            if right < left:
-                backtrack(S+')', left, right+1)
+            if l < n:
+                backtrack(s+'(', l+1, r)
+            if r < l:
+                backtrack(s+')', l, r+1)
 
-        backtrack(S,left,right)
+        backtrack(s,l,r)
         return ans
 print(Solution.generateParenthesis(Solution,3))
