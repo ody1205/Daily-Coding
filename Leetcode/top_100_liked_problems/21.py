@@ -14,24 +14,25 @@ Output: 1->1->2->3->4->4
 #         self.val = x
 #         self.next = None
 
+import heapq
 class Solution:
-    def mergeTwoLists(self, l1, l2):
-        l1_cur = l1
-        l2_cur = l2
-        dummy = ListNode(None)
-        cur = dummy
-        while l1_cur and l2_cur:
-            if l1_cur.val <= l2_cur.val:
-                cur.next = l1_cur
-                l1_cur = l1_cur.next
+    def mergeKLists(self, lists):
+        l, head, pointer = [], None, None
+        for i in range(len(lists)):
+            head = lists[i]
+            while head:
+                l.append(head.val)
+                head = head.next
+                
+        l.sort()
+        
+        while l:
+            if head == None:
+                head = ListNode(l.pop(0))
+                pointer = head
             else:
-                cur.next = l2_cur
-                l2_cur = l2_cur.next
-            cur = cur.next
-        if l1_cur:
-            cur.next = l1_cur
-        else:
-            cur.next = l2_cur
-        return dummy.next
+                pointer.next = ListNode(l.pop(0))
+                pointer = pointer.next
+        return head
 
 
